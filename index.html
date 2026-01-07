@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>jaka - kink odik</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #f8ff00;
+            --secondary: #ff00ff;
+            --cyan: #00ffff;
+            --dark: #0a0a0a;
+            --white: #ffffff;
+            --neo-border: 4px solid #0a0a0a;
+            --neo-shadow: 10px 10px 0px #0a0a0a;
+        }
+
+        /* --- RESET TOTAL --- */
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+        html, body {
+            width: 100%; height: 100%; overflow-x: hidden;
+            background-color: #f0f0f0; color: var(--dark);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        /* --- LOADING SCREEN GOKIL (LIQUID MORPHING) --- */
+        #loader {
+            position: fixed; inset: 0; background: var(--dark);
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            z-index: 10000; transition: 1s cubic-bezier(0.8, 0, 0.2, 1);
+        }
+
+        .liquid {
+            width: 100px; height: 100px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+            animation: morph 3s linear infinite alternate;
+            border: 4px solid white;
+        }
+
+        @keyframes morph {
+            0% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; transform: rotate(0deg); }
+            100% { border-radius: 70% 30% 50% 50% / 30% 60% 40% 70%; transform: rotate(180deg); }
+        }
+
+        .loader-text {
+            margin-top: 40px; color: white; font-family: 'Syne'; 
+            font-weight: 800; letter-spacing: 5px; font-size: 0.9rem;
+            animation: pulse 1s infinite alternate;
+        }
+
+        @keyframes pulse { from { opacity: 0.5; } to { opacity: 1; } }
+
+        /* --- NAVBAR --- */
+        nav {
+            width: 100%; padding: 25px 6%;
+            background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(15px);
+            border-bottom: var(--neo-border);
+            display: flex; justify-content: space-between; align-items: center;
+            position: sticky; top: 0; z-index: 900;
+        }
+        .brand { font-family: 'Syne'; font-size: 1.8rem; font-weight: 800; }
+        .brand span { color: var(--secondary); text-shadow: 2px 2px 0px var(--dark); }
+
+        /* --- HERO --- */
+        .hero {
+            padding: 80px 6%; background: var(--primary);
+            border-bottom: var(--neo-border);
+            display: grid; grid-template-columns: 1fr; gap: 40px;
+        }
+
+        .profile-container { position: relative; width: 180px; height: 180px; }
+        .profile-box {
+            width: 100%; height: 100%; background: var(--white);
+            border: var(--neo-border); box-shadow: var(--neo-shadow);
+            overflow: hidden; transform: rotate(-5deg); transition: 0.3s;
+        }
+        .profile-box:hover { transform: rotate(0deg); }
+        .profile-box img { width: 100%; height: 100%; object-fit: cover; }
+
+        .hero-text h1 { font-family: 'Syne'; font-size: clamp(3rem, 10vw, 5rem); line-height: 0.8; margin: 25px 0; }
+        .hero-text p { font-size: 1.2rem; font-weight: 600; max-width: 550px; line-height: 1.4; margin-bottom: 40px; }
+
+        .btn-list { display: flex; flex-wrap: wrap; gap: 15px; }
+        .btn {
+            padding: 20px 35px; border: var(--neo-border); background: var(--white);
+            font-weight: 800; text-decoration: none; color: var(--dark);
+            box-shadow: 6px 6px 0px var(--dark); transition: 0.1s;
+            display: flex; align-items: center; gap: 12px; font-size: 1rem;
+        }
+        .btn:active { transform: translate(4px, 4px); box-shadow: 0px 0px 0px var(--dark); }
+        .btn-pink { background: var(--secondary); color: white; }
+
+        /* --- CONTENT GRID --- */
+        main { padding: 60px 6%; }
+        .grid { display: grid; grid-template-columns: 1fr; gap: 50px; }
+
+        .card {
+            background: var(--white); border: var(--neo-border);
+            box-shadow: 15px 15px 0px var(--dark); transition: 0.3s;
+        }
+        .card:hover { transform: translate(-5px, -5px); box-shadow: 20px 20px 0px var(--dark); }
+
+        .card-img-wrap { width: 100%; height: 300px; overflow: hidden; border-bottom: var(--neo-border); background: #ddd; }
+        .card-img { width: 100%; height: 100%; object-fit: cover; }
+
+        .card-content { padding: 35px; }
+        .tag { 
+            display: inline-block; padding: 6px 15px; background: var(--cyan);
+            border: 2px solid var(--dark); font-weight: 800; font-size: 0.8rem; margin-bottom: 20px;
+        }
+        .card h2 { font-family: 'Syne'; font-size: 2.2rem; margin-bottom: 20px; line-height: 1; }
+        .card p { font-size: 1.1rem; line-height: 1.7; color: #333; }
+
+        .card-footer { padding: 25px 35px; border-top: 2px solid #000; display: flex; justify-content: flex-end; }
+        .read-more { font-weight: 800; color: var(--dark); text-decoration: none; font-size: 1.2rem; border-bottom: 5px solid var(--primary); }
+
+        /* --- MODAL --- */
+        #modal {
+            position: fixed; inset: 0; background: var(--white);
+            z-index: 2000; display: none; overflow-y: auto; padding: 50px 6%;
+        }
+        .modal-inner { max-width: 900px; margin: 0 auto; }
+        .close-btn { 
+            padding: 15px 35px; background: var(--dark); color: white;
+            border: none; font-weight: 800; margin-bottom: 40px; cursor: pointer;
+            box-shadow: 5px 5px 0px var(--cyan);
+        }
+
+        /* --- FOOTER --- */
+        footer { 
+            background: var(--dark); color: white; padding: 100px 6%; text-align: center;
+            border-top: 15px solid var(--secondary);
+        }
+
+        @media (min-width: 992px) {
+            .hero { grid-template-columns: auto 1fr; align-items: center; padding: 120px 10%; gap: 80px; }
+            .grid { grid-template-columns: repeat(2, 1fr); }
+            main { padding: 100px 10%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="loader">
+        <div class="liquid"></div>
+        <p class="loader-text">BENTAR LOADING...</p>
+    </div>
+
+    <nav>
+        <div class="brand">JAKA<span>POV</span></div>
+        <div style="font-weight: 800; font-size: 0.9rem;"></div>
+    </nav>
+
+    <header class="hero">
+        <div class="profile-container">
+            <div class="profile-box">
+                <img src="https://i.pinimg.com/originals/2d/6b/23/2d6b230230f81d86646549925272a27b.jpg" alt="Manhwa Aesthetic" onerror="this.src='https://picsum.photos/400/400?women'">
+            </div>
+        </div>
+        <div class="hero-text">
+            <h1>YO, GW JAKA.</h1>
+            <p>Idup di 2026 makin gak ngotak bre. Gw di sini cuma buat numpahin unek-unek soal realita pahit, harga beras yang selangit, dan drama dunia yang makin absurd.</p>
+            <div class="btn-list">
+                <a href="#" class="btn btn-pink"><i class="fab fa-whatsapp"></i> WA GW</a>
+                <a href="#" class="btn"><i class="fab fa-instagram"></i> IG GW</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <h2 style="font-family:'Syne'; font-size: 2.5rem; margin-bottom: 50px; text-transform: uppercase;">BACAIN NIH 👇</h2>
+        <div class="grid" id="main-grid"></div>
+    </main>
+
+    <div id="modal">
+        <div class="modal-inner">
+            <button class="close-btn" onclick="closeModal()">← BALIK BRE</button>
+            <div id="modal-content"></div>
+        </div>
+    </div>
+
+    <footer>
+        <h2 style="font-family:'Syne'; font-size: 2.5rem; margin-bottom: 20px;">BY JAKA.</h2>
+        <p style="opacity: 0.6; line-height: 1.6;">Idup cuma sekali, gak usah terlalu serius ama angka di layar. Yang penting hari ini lu masih bisa napas ama makan nasi telor.</p>
+    </footer>
+
+    <script>
+        const stories = [
+            {
+                tag: "EKONOMI",
+                title: "Makan Warteg Berasa Makan Steak Bintang 5",
+                desc: "Harga pangan 2026 bener-bener gila bre. Dulu 15 rebu kenyang, sekarang dapet kerupuk ama kuah doang!",
+                img: "https://images.unsplash.com/photo-1541544741938-0af808871cc0?w=800",
+                full: `<p>Asli bre, gw baru aja balik dari warteg langganan. Dulu duit 15 rebu udah bisa dapet nasi, ayam, plus tempe orek. Sekarang? Lu bawa duit 20 rebu cuma dapet nasi ama sayur doang bangsat!</p>
+                       <p>Inflasi taun ini emang jahat banget. Gaji gw rasanya cuma numpang lewat doang tiap tanggal 25. Belom lagi bayar kontrakan yang naik tiap taun. Kalo lu gak pinter-pinter cari sambilan atau nahan jajan kopi mahal, fix lu bakal megap-megap di akhir bulan. Dunia makin keras bre!</p>`
+            },
+            {
+                tag: "CUACA",
+                title: "Jakarta Panasnya Udah Kayak Di Oven",
+                desc: "Suhu tembus 42 derajat. Keluar rumah bentar aja udah berasa kayak sate dibakar. Panasnya tai!",
+                img: "https://images.unsplash.com/photo-1444676632488-26a136c45b9b?w=800",
+                full: `<p>Beneran bre, panasnya taun 2026 ini udah gak ada obatnya. Lu keluar jam 1 siang aja, matahari berasa di atas kepala persis. Kulit gw sampe perih kayak kena siram air mendidih.</p>
+                       <p>Gak heran makin banyak orang yang stress di jalan. Udah macet, panas, debu pula. AC di kantor gw aja sampe gak sanggup ngelawan hawa panas dari luar. Kalo lu mau selamat, mending banyakin minum air putih ama jangan lupa pake sunscreen biar muka lu gak gosong kayak areng bre!</p>`
+            },
+            {
+                tag: "LIFE",
+                title: "Sosmed Isinya Flexing Doang, Enek!",
+                desc: "Berhenti pura-pura kaya bre. Gw tau lu makan mie instan sebulan demi cicilan iPhone baru lu itu. Sadar!",
+                img: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800",
+                full: `<p>Gw udah muak liat story orang-orang yang isinya flexing terus. Pamer liburan hasil pinjol, pamer mobil sewaan, pamer tumpukan duit yang entah punya siapa. Padahal aslinya hampa bre.</p>
+                       <p>Mending idup apa adanya. Makan nasi telor tapi pikiran tenang, daripada makan mewah di resto tapi bayarnya pake PayLater. Tahun 2026 ini, yang paling mahal itu bukan tas branded, tapi ketenangan hati. Stop lah bohongin diri sendiri cuma buat dapet 'like' dari netizen yang gak kenal lu siapa!</p>`
+            }
+        ];
+
+        function renderGrid() {
+            const container = document.getElementById('main-grid');
+            stories.forEach((s, i) => {
+                container.innerHTML += `
+                    <div class="card">
+                        <div class="card-img-wrap">
+                            <img src="${s.img}" class="card-img" onerror="this.src='https://picsum.photos/800/600?random=${i}'">
+                        </div>
+                        <div class="card-content">
+                            <span class="tag">${s.tag}</span>
+                            <h2>${s.title}</h2>
+                            <p>${s.desc}</p>
+                        </div>
+                        <div class="card-footer">
+                            <a href="javascript:void(0)" onclick="openModal(${i})" class="read-more">BACA LENGKAP →</a>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function openModal(i) {
+            const s = stories[i];
+            document.getElementById('modal-content').innerHTML = `
+                <img src="${s.img}" style="width:100%; border:var(--neo-border); box-shadow:var(--neo-shadow); margin-bottom:30px;">
+                <h1 style="font-family:'Syne'; font-size:2.5rem; margin-bottom:25px; line-height:1;">${s.title}</h1>
+                <div style="line-height:1.8; font-size:1.2rem; color:#222;">${s.full}</div>
+            `;
+            document.getElementById('modal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        window.onload = () => {
+            renderGrid();
+            setTimeout(() => {
+                const loader = document.getElementById('loader');
+                loader.style.opacity = '0';
+                loader.style.pointerEvents = 'none';
+            }, 2000);
+        };
+    </script>
+</body>
+</html>
